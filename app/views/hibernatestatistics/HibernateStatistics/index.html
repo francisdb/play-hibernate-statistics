@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<title>Hibernate Statistics</title>
+		<style type="text/css">
+			body{font-family: sans-serif}
+		</style>
+	</head>
+	<body>
+		<h1>Hibernate statistics since ${new Date(statistics.getStartTime())}</h1>
+		<p>${statistics}</p>
+		
+		*{more info here: http://www.javalobby.org/java/forums/t19807.html}*
+		
+		<ul>
+			#{list items:statistics.getQueries(), as:'query'}
+			<li><pre>${query}</pre>
+				%{ qs =  statistics.getQueryStatistics(query) }%
+				Count: ${qs.getExecutionCount()}<br/>
+				Average time: ${qs.getExecutionAvgTime()}<br/>
+				Total Time spent: ${qs.getExecutionCount() * qs.getExecutionAvgTime()}
+			</li>
+			#{/list}
+		</ul>
+	</body>
+</html>
